@@ -1,11 +1,17 @@
+from reportlab.pdfbase.pdfmetrics import FontError
 import certgen
 
-cert = certgen.CertGen
+cert = certgen.CertGen("CertOP")
+cert.initPage(29.7, 21, "./assets/Cert.jpeg")
 
-cert.initOpFolder("CetOP")
-cert.initPage(29.7, 21, "assets/cert2.webp", 100)
+name = "Manoj Thankappan"
+clgname = "Sree Chithra Thirunal College of Engineering"
+fontsize = 25
+fnormal = "LHANDW"
+fbold = "corbel"
 
-names = ["Francine Prentice","Porfirio Seawell","Pat Rosol","Reynaldo Forcier","Andrew Kos","Myrna Fredrickson","Lura Stec","Madlyn Mantooth","Lemuel Arterburn","Sydney Chery","Huong Rehm","Reba Rodgers","Karole Lucy","Shonna Begin","Leana Ishikawa","Celestina Chisum","Zena Coolbaugh","Le Stickel","Christine Saling","Claudie Bellone"]
 
-name = names[1]
-cert.makeCertificate("Lets C | %s"%name, name, name, 200)
+cert.drawCenString(name, fontsize, 480, 305, fnormal)
+cert.drawCenString(clgname, fontsize-5, 485, 255, fbold)
+print(f"Generating Certificate: {name}")
+cert.makeCertificate("MyCert", "manoj")
