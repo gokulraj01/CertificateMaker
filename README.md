@@ -3,6 +3,10 @@
 A Python Based basic Certificate Generation Utility for bulk generation.
 
 ## Changelog
+
+### v. 2.2.dev.
+ - Added GUI Positioning tool for finding x, y offsets
+
 ### v. 2.1
 - Minor bug fixes and improvements
 - Removed reduntant image scaling
