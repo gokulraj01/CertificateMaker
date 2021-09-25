@@ -18,6 +18,9 @@ A Python Based basic Certificate Generation Utility for bulk generation.
         uid: list   # list of data fields to use in report
         )
     ```
+- Minor bug fixes and improvements
+
+<hr>
 
 ### v. 2.1
 - Minor bug fixes and improvements
@@ -35,6 +38,8 @@ A Python Based basic Certificate Generation Utility for bulk generation.
         )
     ```
 - Auto Centificate Serial Numbering via `initSerial()` with user specified prefix
+
+<hr>
 
 ### v. 1.0
 - Support for single centered string parameter with variable y-axis positioning
