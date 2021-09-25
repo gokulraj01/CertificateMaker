@@ -4,8 +4,20 @@ A Python Based basic Certificate Generation Utility for bulk generation.
 
 ## Changelog
 
-### v. 2.2.dev.
- - Added GUI Positioning tool for finding x, y offsets
+### v. 3.0
+- Added GUI Positioning tool for finding x, y offsets in images in one step instead of trial and error.
+- Support for local .ttf Font Faces.
+
+- Reports can now be made in CSV and JSON formats using `CertGen.makeCSVReport()` and `CertGen.makeJSONReport()` after certificate generation.
+- Improved Human Friendly layout for reports
+- n-data fields supports in reports (from previous 2 limit). Data can be passed along via `CertGen.makeCertificate()`
+    ```py
+    Certgen.makeCertificate(
+        title: str,
+        filename: str,
+        uid: list   # list of data fields to use in report
+        )
+    ```
 
 ### v. 2.1
 - Minor bug fixes and improvements

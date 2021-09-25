@@ -54,14 +54,15 @@ class CertGen:
             'y': y
         }
 
-    def drawSlNo(self, can: Canvas, uid1: str, uid2: str):
+    def drawSlNo(self, can: Canvas, uid: list):
         can.setFont(self.serial['font'], 12)
         num = "%s%03d"%(self.serial['pref'], self.serial['n'])
         can.drawCentredString(self.serial['x'], self.serial['y'], f"CertNo: {num}")
-        self.report.append([uid1, uid2, num])
+        uid.append(num)
+        self.report.append(uid)
         self.serial['n'] += 1
 
-    def makeCertificate(self, title: str, filename: str, uid1: str, uid2:str="n/a"):
+    def makeCertificate(self, title: str, filename: str, uid: list):
         # Initialize PDF Properties and Assets
         bgImg = Image.open(self.bgFile)
         # bgImg = bgImg.resize((int(self.pageWidthPt), int(self.pageHeightPt)), resample=Image.LANCZOS)
@@ -76,14 +77,37 @@ class CertGen:
             canvas.setFont(f['fname'], f['size'])
             canvas.drawCentredString(f['x'], f['y'], f['data'])
         if(self.serial['status']):
-            self.drawSlNo(canvas, uid1, uid2)
+            self.drawSlNo(canvas, uid)
         canvas.save()
         self.fields = []
     
-    def makeReport(self, filename: str):
+    def makeCSVReport(self, filename: str):
         print(f"Generating report to {filename}.csv")
         f = open(f"{self.opFolder}/{filename}.csv", 'w+')
-        f.write("Data0, Data1, CertNo\n")
+        data_i = len(self.report[0])
+        header = ""
+        for i in range(data_i-1):
+            header += f"Data{i}, "
+        header += "CertNo\n"
+        f.write(header)
         for entry in self.report:
-            f.write(f"{entry[0]}, {entry[1]}, {entry[2]}\n")
+            op_str = ""
+            for e in entry:
+                op_str += f"{e}, "
+            f.write(f"{op_str[:-2]}\n")
+        f.close()
+    
+    def makeJSONReport(self, filename: str):
+        spacing = 3
+        spacer = " "
+        print(f"Generating report to {filename}.json")
+        f = open(f"{self.opFolder}/{filename}.json", 'w+')
+        f.write("{\n\"report_data\": [\n")
+        for entry in self.report:
+            op_str = ""
+            for e in entry:
+                op_str += f"\"{e}\", "
+            f.write(f"{spacer*spacing}[{op_str[:-2]}],\n")
+        f.seek(f.tell()-3)
+        f.write("\n]\n}")
         f.close()

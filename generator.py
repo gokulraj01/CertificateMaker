@@ -1,4 +1,3 @@
-from reportlab.pdfbase.pdfmetrics import FontError
 import certgen
 
 names = ["Katlyn Mosby","Tenesha Wells","Yuri Somerville","Jose Scroggins"]
@@ -16,6 +15,7 @@ for name in names:
     cert.drawCenString(name, fontsize, 480, 305, fnormal)
     cert.drawCenString(clgname, fontsize-5, 485, 255, fbold)
     print(f"Generating Certificate: {name}")
-    cert.makeCertificate("MyCert", name, name, clgname)
+    cert.makeCertificate("MyCert", name, [name, clgname])
 
-cert.makeReport("report")
+cert.makeCSVReport("report")
+cert.makeJSONReport("report")
